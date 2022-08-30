@@ -7,7 +7,7 @@ export default function Dashboard(){
 <div className="dashboard-container">
     <Menu />
     <div className="principal">
-    <Head title="estou na Dashboard" />
+    <Head title="estou Feliz!" />
     <h1>estou na Dashboard</h1>
     </div>
 </div>
