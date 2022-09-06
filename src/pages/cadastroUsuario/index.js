@@ -6,11 +6,59 @@ export default function Cadastrousuario(){
     const [nome,setNome] = useState("");
     const [email,setEmail] = useState("");
     const [senha,setSenha] = useState("");
-    const [confimar,setConfirmar] = useState("");
-
+    const [confirmar,setConfirmar] = useState("");
+    const [msg,setMsg]=useState([]);
+  
+    function validaremail(){
+        var re = /\S+@\S+\.\S+/;
+        return re.test(email);
+    }
+   
     function salvardados(e){
         e.preventDefault();
-        alert("Dados Salvos com Sucesso!");
+        let i=0;
+        let errorMsg=[];
+        
+
+        if(nome.length<3){
+            errorMsg.push("Campo nome tem menos de 3 caracteres\n");
+            i++;
+        }
+        if(email.length==0){
+            errorMsg.push("Campo e-mail está vazio\n");
+            i++;    
+        }else if(!validaremail()){
+           errorMsg.push("Por favor! Coloque um e-mail valido!\n");
+           i++;
+        }
+
+        if(senha.length<3){
+            errorMsg.push("Campo senha tem menos de 3 caracteres\n");
+            i++;
+        }else if(senha!==confirmar){
+            errorMsg.
+            push("Senha e confirmação não conferem\n");
+            i++;
+        }
+        if(i==0)
+        {
+
+            setMsg("");
+            let lista = JSON.parse(localStorage.getItem("cad-usuarios")||"[]");
+            lista.push(
+                {
+                  id:Date.now().toString(36)+Math.floor(Math.pow(10,12)+Math.random()*9*Math.pow(10,12)).toString(36),
+                  nome:nome,
+                  email:email,
+                  senha:senha  
+                }
+            )
+            localStorage.setItem("cad-usuarios",JSON.stringify(lista));
+            alert("Dados Salvos com Sucesso!");
+        }else{
+            setMsg(errorMsg);
+        }
+        
     }
  return(
 <div className="dashboard-container">
@@ -26,7 +74,7 @@ export default function Cadastrousuario(){
                     />
                     <label>E-mail</label>
                     <input placeholder="e-mail@email.com"
-                     type="email"
+                     type="text"
                      value={email}
                      onChange={e=>setEmail(e.target.value)}                     
                     />
@@ -39,16 +87,13 @@ export default function Cadastrousuario(){
                     <label>Confirmar Senha</label>
                     <input 
                     type="password"
-                    value={confimar}
+                    value={confirmar}
                     onChange={e=>setConfirmar(e.target.value)}                    
                     />
                     <button className="button_save"  type="submit">
                         Salvar
                     </button>
-                    <h1>{nome}</h1>
-                    <h1>{email}</h1>
-                    <h1>{senha}</h1>
-                    <h1>{confimar}</h1>
+                    <pre>{msg[0]}</pre>
     
                 </form>
             </section>
