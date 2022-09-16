@@ -101,7 +101,7 @@ export default function Editarusuario(){
 <div className="dashboard-container">
     <Menu />
     <div className="principal">
-            <Head title="Cadastro de Usuários" />
+            <Head title="Editar Usuário" />
             <section className="form-cadastro">
                 <form onSubmit={salvardados} >
                     <label>Nome</label>

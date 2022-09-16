@@ -3,6 +3,7 @@ import Head from "../../componentes/Head";
 import Menu from "../../componentes/Menu";
 
 export default function Dashboard(){
+    
  return(
 <div className="dashboard-container">
     <Menu />
