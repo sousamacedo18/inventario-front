@@ -27,7 +27,7 @@ export default function Cadastrolotacao(){
         setUsuarios(JSON.parse(localStorage.getItem("cad-usuarios")||"[]"));
         setEmpresa(JSON.parse(localStorage.getItem("cad-empresas")||"[]"));
         setPatrimonio(JSON.parse(localStorage.getItem("cad-patrimonios")||"[]"));
-        setSetor(JSON.parse(localStorage.getItem("cad-setor")||"[]"));
+        setSetor(JSON.parse(localStorage.getItem("cad-setores")||"[]"));
       
 
         
@@ -48,7 +48,8 @@ export default function Cadastrolotacao(){
                   idusu:idusu,
                   idset:idset,
                   idpat:idpat,
-                  idemp:idemp 
+                  idemp:idemp,
+                  datalotacao:datalotacao
                 }
             )
             localStorage.setItem("cad-lotacoes",JSON.stringify(lista));
@@ -91,6 +92,30 @@ export default function Cadastrolotacao(){
                           })
                     }
                     </select>  
+                    <label>Patrimônio</label>
+                    <select
+                    onChange={(e) => setPat(e.target.value)}
+                    >
+                    {
+                    patrimonio.map((pat)=>{
+                          return(
+                            <option value={pat.id}> {pat.nome} </option>
+                          )
+                          })
+                    }
+                    </select>  
+                    <label>Setor</label>
+                    <select
+                    onChange={(e) => setSet(e.target.value)}
+                    >
+                    {
+                    setor.map((set)=>{
+                          return(
+                            <option value={set.id}> {set.nome} </option>
+                          )
+                          })
+                    }
+                    </select>  
                     <input 
                             type="Date"
                             value={datalotacao}
@@ -100,7 +125,10 @@ export default function Cadastrolotacao(){
                         Salvar
                     </button>
                     <pre>{msg[0]}</pre>
-                    <pre>{idusu}</pre>
+                    {/* <pre>{idusu}</pre>
+                    <pre>{idemp}</pre>
+                    <pre>{idpat}</pre>
+                    <pre>{idset}</pre> */}
     
                 </form>
             </section>

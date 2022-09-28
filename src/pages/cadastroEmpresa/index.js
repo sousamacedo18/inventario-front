@@ -49,8 +49,8 @@ export default function Cadastroempresa(){
                 {
                   id:Date.now().toString(36)+Math.floor(Math.pow(10,12)+Math.random()*9*Math.pow(10,12)).toString(36),
                   nome:nome,
-                  email:email,
-                  senha:senha  
+                  responsavel:responsavel,
+                  contato:contato  
                 }
             )
             localStorage.setItem("cad-empresas",JSON.stringify(lista));

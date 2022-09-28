@@ -6,7 +6,7 @@ import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 import {useNavigate,Link} from "react-router-dom";
 
-export default function ListaUsuarios(){
+export default function Listaempresas(){
     const navigate=useNavigate();
     const [dados,setDados]=useState([]);
     const [row,setRow] = useState(0);
@@ -14,7 +14,7 @@ export default function ListaUsuarios(){
             mostrardados();
     },[])
     function editar(id){
-        navigate(`/editarusuario/${id}`)
+        navigate(`/editarempresa/${id}`)
         
     }
 
@@ -29,7 +29,7 @@ export default function ListaUsuarios(){
                     let dadosnovos = [];
                     dadosnovos = dados.filter(item=>item.id!=id);
                     setDados(dadosnovos);
-                    localStorage.setItem('cad-usuarios',JSON.stringify(dadosnovos));
+                    localStorage.setItem('cad-empresas',JSON.stringify(dadosnovos));
                     setRow(dadosnovos.length)
                 }
               },
@@ -41,7 +41,7 @@ export default function ListaUsuarios(){
         });
       };
     function mostrardados(){
-        let lista =JSON.parse(localStorage.getItem("cad-usuarios")||"[]");
+        let lista =JSON.parse(localStorage.getItem("cad-empresas")||"[]");
         setDados(lista);
         setRow(lista.length)
     }
@@ -50,9 +50,9 @@ export default function ListaUsuarios(){
     <Menu />
     
     <div className="principal">
-    <Head title="Lista de Usuários" />
+    <Head title="Lista de Empresas" />
     <div className="button_new">
-      <a href="/cadastrousuario">
+      <a href="/cadastroempresa">
         <FiFilePlus
           size={24}
           color="green"
@@ -64,24 +64,25 @@ export default function ListaUsuarios(){
                     <tr>
                         <th>Id</th>
                         <th>Nome</th>
-                        <th>Email</th>
+                        <th>Responsável</th>
+                        <th>Contato</th>
                         <th></th>
                         <th></th>
                     </tr>
                     {
-                      dados.map((usu)=>{
+                      dados.map((emp)=>{
                           return(
-                              <tr key={usu.toString()}> 
-                              <td>{usu.id}</td>
-                              <td>{usu.nome}</td>
-                              <td>{usu.email}</td>
+                              <tr key={emp.toString()}> 
+                              <td>{emp.id}</td>
+                              <td>{emp.nome}</td>
+                              <td>{emp.email}</td>
                               <td>
                             
                                       <FiEdit 
                                       color="blue"
                                       size={18}
                                       cursor="pointer"
-                                      onClick={(e)=>editar(usu.id)}
+                                      onClick={(e)=>editar(emp.id)}
                                       />
                                 
 
@@ -92,7 +93,7 @@ export default function ListaUsuarios(){
                                     color="red"
                                     size={18}
                                     cursor="pointer"
-                                    onClick={(e)=>excluir(usu.id)}
+                                    onClick={(e)=>excluir(emp.id)}
                                     />                                  
                               </td>
                               </tr>

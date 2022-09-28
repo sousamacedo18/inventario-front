@@ -6,8 +6,9 @@ import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 import {useNavigate,Link} from "react-router-dom";
 
-export default function ListaUsuarios(){
+export default function Listalotacao(){
     const navigate=useNavigate();
+
     const [dados,setDados]=useState([]);
     const [row,setRow] = useState(0);
     useEffect(()=>{
@@ -17,7 +18,43 @@ export default function ListaUsuarios(){
         navigate(`/editarusuario/${id}`)
         
     }
+    function mostrarnomeusuario(id){
+      let lista=[];
+      let cadastro=[];
+      lista=JSON.parse(localStorage.getItem("cad-usuarios")||"[]");
+      cadastro = lista.filter(item=>item.id==id);
+      return cadastro[0].nome;
 
+    }
+    function mostrarnomeempresa(id){
+      let lista=[];
+      let cadastro=[];
+      lista=JSON.parse(localStorage.getItem("cad-usuarios")||"[]");
+      cadastro = lista.filter(item=>item.id==id);
+      return cadastro[0].nome;
+
+    }
+    function mostrarnome(id,posicao){
+      let lista=[];
+      let cadastro=[];
+      if(posicao==1){
+      lista=JSON.parse(localStorage.getItem("cad-usuarios")||"[]");
+      }
+      if(posicao==2){
+      lista=JSON.parse(localStorage.getItem("cad-empresas")||"[]");
+      }
+      if(posicao==3){
+      lista=JSON.parse(localStorage.getItem("cad-patrimonios")||"[]");
+      }
+      if(posicao==4){
+      lista=JSON.parse(localStorage.getItem("cad-setores")||"[]");
+      }
+
+      cadastro = lista.filter(item=>item.id==id);
+      return cadastro[0].nome;
+
+
+    }
     function excluir(id){ 
         confirmAlert({
           title: 'Excluir Cadastro',
@@ -41,7 +78,7 @@ export default function ListaUsuarios(){
         });
       };
     function mostrardados(){
-        let lista =JSON.parse(localStorage.getItem("cad-usuarios")||"[]");
+        let lista =JSON.parse(localStorage.getItem("cad-lotacoes")||"[]");
         setDados(lista);
         setRow(lista.length)
     }
@@ -63,25 +100,31 @@ export default function ListaUsuarios(){
                 <table>
                     <tr>
                         <th>Id</th>
-                        <th>Nome</th>
-                        <th>Email</th>
+                        <th>Idusu</th>
+                        <th>Idemp</th>
+                        <th>IdPat</th>
+                        <th>IdSet</th>
+                        <th>Data Lotação</th>
                         <th></th>
                         <th></th>
                     </tr>
                     {
-                      dados.map((usu)=>{
+                      dados.map((lot)=>{
                           return(
-                              <tr key={usu.toString()}> 
-                              <td>{usu.id}</td>
-                              <td>{usu.nome}</td>
-                              <td>{usu.email}</td>
+                              <tr key={lot.toString()}> 
+                              <td>{lot.id}</td>
+                              <td>{mostrarnome(lot.idusu,1)}</td>
+                              <td>{mostrarnome(lot.idemp,2)}</td>
+                              <td>{mostrarnome(lot.idpat,3)}</td>
+                              <td>{mostrarnome(lot.idset,4)}</td>
+                              <td>{lot.datalotacao}</td>
                               <td>
                             
                                       <FiEdit 
                                       color="blue"
                                       size={18}
                                       cursor="pointer"
-                                      onClick={(e)=>editar(usu.id)}
+                                      onClick={(e)=>editar(lot.id)}
                                       />
                                 
 
@@ -92,7 +135,7 @@ export default function ListaUsuarios(){
                                     color="red"
                                     size={18}
                                     cursor="pointer"
-                                    onClick={(e)=>excluir(usu.id)}
+                                    onClick={(e)=>excluir(lot.id)}
                                     />                                  
                               </td>
                               </tr>
