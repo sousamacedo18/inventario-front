@@ -37,7 +37,7 @@ export default function Cadastrolotacao(){
     function salvardados(e){
         e.preventDefault();
 
-        if(idemp!=="" && idpat!=="" && idset!=="" && idusu!=="")
+        if(idemp.length!==0 && idpat.length!==0 && idset.length!==0 && idusu.length!==0)
         {
 
             setMsg("");
@@ -71,6 +71,7 @@ export default function Cadastrolotacao(){
                     <select
                     onChange={(e) => setIdusu(e.target.value)}
                     >
+                       <option></option> 
                     {
                     usuarios.map((usu)=>{
                           return(
@@ -82,8 +83,10 @@ export default function Cadastrolotacao(){
 
                     <label>Empresa</label>
                     <select
+
                     onChange={(e) => setEmp(e.target.value)}
                     >
+                        <option></option> 
                     {
                     empresa.map((emp)=>{
                           return(
@@ -96,6 +99,7 @@ export default function Cadastrolotacao(){
                     <select
                     onChange={(e) => setPat(e.target.value)}
                     >
+                        <option></option> 
                     {
                     patrimonio.map((pat)=>{
                           return(
@@ -108,6 +112,7 @@ export default function Cadastrolotacao(){
                     <select
                     onChange={(e) => setSet(e.target.value)}
                     >
+                        <option></option> 
                     {
                     setor.map((set)=>{
                           return(

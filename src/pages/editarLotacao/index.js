@@ -3,97 +3,66 @@ import Head from "../../componentes/Head";
 import Menu from "../../componentes/Menu";
 import { useNavigate,useParams } from "react-router-dom";
 
-export default function Editarusuario(){
+export default function Editarlotacao(){
     const navigate = useNavigate();
     const {id} = useParams();
-    const [nome,setNome] = useState("");
-    const [email,setEmail] = useState("");
-    const [senha,setSenha] = useState("");
-    const [confirmar,setConfirmar] = useState("");
+    const [datalotacao,setDatalotacao] = useState();
+    const [idusu,setIdusu] = useState("");
+    const [idemp,setEmp] = useState("");
+    const [idset,setSet] = useState("");
+    const [idpat,setPat] = useState("");
     const [msg,setMsg]=useState([]);
-    const [dados,setDados]=useState([]);
+    const [usuarios,setUsuarios]=useState([]);
+    const [empresa,setEmpresa]=useState([]);
+    const [setor,setSetor]=useState([]);
+    const [patrimonio,setPatrimonio]=useState([]);
   
   
-    function validaremail(){
-        var re = /\S+@\S+\.\S+/;
-        return re.test(email);
-    }
+
     useEffect(()=>{
         mostrardados();
     },[])
     function mostrardados(){
-        let lista =JSON.parse(localStorage.getItem("cad-usuarios")||"[]");
-        setDados(lista);
-        let usu = lista.filter(item=>item.id==id);
-        setNome(usu[0].nome);
-        setEmail(usu[0].email);
-        setSenha(usu[0].senha);
-        setConfirmar(usu[0].senha);
+        let lista =JSON.parse(localStorage.getItem("cad-lotacoes")||"[]");
+        let lot = lista.filter(item=>item.id==id);
+        setIdusu(lot[0].idusu);
+        setEmp(lot[0].idemp);
+        setPat(lot[0].idpat);
+        setSet(lot[0].idset);
+        setDatalotacao(lot[0].datalotacao);
+        setUsuarios(JSON.parse(localStorage.getItem("cad-usuarios")||"[]"));
+        setEmpresa(JSON.parse(localStorage.getItem("cad-empresas")||"[]"));
+        setPatrimonio(JSON.parse(localStorage.getItem("cad-patrimonios")||"[]"));
+        setSetor(JSON.parse(localStorage.getItem("cad-setores")||"[]"));
+        
     }
-    function verificarduplicidade(email){
-        let dadosnovos = [];
-        dadosnovos = dados.filter(item=>item.email==email);
-        if(dadosnovos.length>0){
-            return true
-        }
-        return false;
-    }
+
     function salvardados(e){
         e.preventDefault();
         let i=0;
         let errorMsg=[];
+
         
-
-        if(nome.length<3){
-            errorMsg.push("Campo nome tem menos de 3 caracteres\n");
-            i++;
-        }
-
-        if(email.length==0){
-            errorMsg.push("Campo e-mail está vazio\n");
-            i++;    
-        }else if(!validaremail()){
-           errorMsg.push("Por favor! Coloque um e-mail valido!\n");
-           i++;
-        }
-
-        if(senha.length<3){
-            errorMsg.push("Campo senha tem menos de 3 caracteres\n");
-            i++;
-        }else if(senha!==confirmar){
-            errorMsg.
-            push("Senha e confirmação não conferem\n");
-            i++;
-        }
-        if(i==0)
+        if(idemp.length!==0 && idpat.length!==0 && idset.length!==0 && idusu.length!==0)
         {
 
             setMsg("");
-            let dadosnovos=[];
-            let lista = JSON.parse(localStorage.getItem("cad-usuarios")||"[]");
-            dadosnovos=lista.map((function(item){
-                if(item.id==id){
-                    return { id:id,
-                             nome:nome,
-                             email:email,
-                             senha:senha
-                    }
-
-                    }else{
-                       return{
-                                    id:item.id,
-                                    nome:item.nome,
-                                    email:item.email,
-                                    senha:item.senha  
-                       }
-                    }
-                
-            }));
-            localStorage.setItem("cad-usuarios",JSON.stringify(dadosnovos));
+            let lista = JSON.parse(localStorage.getItem("cad-lotacoes")||"[]");
+            lista.push(
+                {
+                  id:id,
+                  idusu:idusu,
+                  idset:idset,
+                  idpat:idpat,
+                  idemp:idemp,
+                  datalotacao:datalotacao
+                }
+            )
+            localStorage.setItem("cad-lotacoes",JSON.stringify(lista));
             alert("Dados Salvos com Sucesso!");
-            navigate("/listausuarios");
+            navigate("/listalotacoes");
         }else{
-            setMsg(errorMsg);
+            setMsg("Verifique todos os campos!!!!!!");
         }
         
     }
@@ -104,33 +73,73 @@ export default function Editarusuario(){
             <Head title="Editar Usuário" />
             <section className="form-cadastro">
                 <form onSubmit={salvardados} >
-                    <label>Nome</label>
-                    <input placeholder="Nome"
-                    value={nome}
-                    onChange={e=>setNome(e.target.value)}
-                    />
-                    <label>E-mail</label>
-                    <input placeholder="e-mail@email.com"
-                     type="text"
-                     value={email}
-                     onChange={e=>setEmail(e.target.value)}                     
-                    />
-                    <label>Senha</label>
+                <label>Usuário</label>
+                    <select
+                    value={idusu}
+                    onChange={(e) => setIdusu(e.target.value)}
+                    >
+                    {
+                    usuarios.map((usu)=>{
+                          return(
+                            <option value={usu.id}> {usu.nome} </option>
+                          )
+                          })
+                    }
+                    </select>
+
+                    <label>Empresa</label>
+                    <select
+                    value={idemp}
+                    onChange={(e) => setEmp(e.target.value)}
+                    >
+                    {
+                    empresa.map((emp)=>{
+                          return(
+                            <option value={emp.id}> {emp.nome} </option>
+                          )
+                          })
+                    }
+                    </select>  
+                    <label>Patrimônio</label>
+                    <select
+                    value={idpat}
+                    onChange={(e) => setPat(e.target.value)}
+                    >
+                    {
+                    patrimonio.map((pat)=>{
+                          return(
+                            <option value={pat.id}> {pat.nome} </option>
+                          )
+                          })
+                    }
+                    </select>  
+                    <label>Setor</label>
+                    <select
+                    value={idset}
+                    onChange={(e) => setSet(e.target.value)}
+                    >
+                    {
+                    setor.map((set)=>{
+                          return(
+                            <option value={set.id}> {set.nome} </option>
+                          )
+                          })
+                    }
+                    </select>  
                     <input 
-                    type="password"
-                    value={senha}
-                    onChange={e=>setSenha(e.target.value)}
-                    />
-                    <label>Confirmar Senha</label>
-                    <input 
-                    type="password"
-                    value={confirmar}
-                    onChange={e=>setConfirmar(e.target.value)}                    
-                    />
+                            type="Date"
+                            value={datalotacao}
+                            onChange={(e) => setDatalotacao(e.target.value)}
+                    />                 
                     <button className="button_save"  type="submit">
                         Salvar
                     </button>
                     <pre>{msg[0]}</pre>
+                    <pre>usuario{idusu}</pre>
+                    <pre>{idemp}</pre>
+                    <pre>{idpat}</pre>
+                    <pre>{idset}</pre>
+    
     
                 </form>
             </section>

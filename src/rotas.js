@@ -6,6 +6,7 @@ import Cadastroempresa from "./pages/cadastroEmpresa";
 import Cadastrosetor from "./pages/cadastroSetor";
 import Cadastropatrimonio from "./pages/cadastroPatrimonio";
 import Editarusuario from "./pages/editarUsuario";
+import Editarlotacao from "./pages/editarLotacao";
 import ListaUsuarios from "./pages/listaUsuarios";
 import ListaPatrimonios from "./pages/listaPatrimonios";
 import Listaempresas from "./pages/listaEmpresa";
@@ -29,6 +30,7 @@ export default function Rotas(){
              <Route path="/cadastropatrimonio" element={<Cadastropatrimonio/>} />
              <Route path="/cadastroempresa" element={<Cadastroempresa/>} />
              <Route path="/editarusuario/:id" element={<Editarusuario/>} />
+             <Route path="/editarlotacao/:id" element={<Editarlotacao/>} />
              <Route path="/dashboard" element={<Dashboard />} />
        </Routes>
 </BrowserRouter>

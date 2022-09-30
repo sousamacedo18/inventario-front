@@ -15,7 +15,7 @@ export default function Listalotacao(){
             mostrardados();
     },[])
     function editar(id){
-        navigate(`/editarusuario/${id}`)
+        navigate(`/editarlotacao/${id}`)
         
     }
     function mostrarnomeusuario(id){
@@ -100,8 +100,8 @@ export default function Listalotacao(){
                 <table>
                     <tr>
                         <th>Id</th>
-                        <th>Idusu</th>
-                        <th>Idemp</th>
+                        <th>Usuário</th>
+                        <th>Empresa</th>
                         <th>IdPat</th>
                         <th>IdSet</th>
                         <th>Data Lotação</th>
