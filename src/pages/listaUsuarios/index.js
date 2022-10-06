@@ -10,6 +10,7 @@ export default function ListaUsuarios(){
     const navigate=useNavigate();
     const [dados,setDados]=useState([]);
     const [row,setRow] = useState(0);
+
     useEffect(()=>{
             mostrardados();
     },[])
@@ -69,19 +70,20 @@ export default function ListaUsuarios(){
                         <th></th>
                     </tr>
                     {
-                      dados.map((usu)=>{
+                      dados.map((linha)=>{
                           return(
-                              <tr key={usu.toString()}> 
-                              <td>{usu.id}</td>
-                              <td>{usu.nome}</td>
-                              <td>{usu.email}</td>
+                              <tr key={linha.toString()}> 
+                              <td>{linha.id}</td>
+                              <td>{linha.nome}</td>
+                              <td>{linha.email}</td>
+                              <td>{row}</td>
                               <td>
                             
                                       <FiEdit 
                                       color="blue"
                                       size={18}
                                       cursor="pointer"
-                                      onClick={(e)=>editar(usu.id)}
+                                      onClick={(e)=>editar(linha.id)}
                                       />
                                 
 
@@ -92,7 +94,7 @@ export default function ListaUsuarios(){
                                     color="red"
                                     size={18}
                                     cursor="pointer"
-                                    onClick={(e)=>excluir(usu.id)}
+                                    onClick={(e)=>excluir(linha.id)}
                                     />                                  
                               </td>
                               </tr>

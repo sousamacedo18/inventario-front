@@ -26,6 +26,8 @@ export default function Listalotacao(){
       return cadastro[0].nome;
 
     }
+  
+  
     function mostrarnomeempresa(id){
       let lista=[];
       let cadastro=[];

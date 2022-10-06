@@ -54,8 +54,10 @@ export default function Cadastropatrimonio(){
                     data_aquisicao:data_aquisicao,
                    
                 }
-
+                
+               
             )
+            
         
          localStorage.setItem("cad-patrimonios",JSON.stringify(lista));
             
