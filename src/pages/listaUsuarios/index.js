@@ -85,9 +85,6 @@ export default function ListaUsuarios(){
                                       cursor="pointer"
                                       onClick={(e)=>editar(linha.id)}
                                       />
-                                
-
-                                   
                               </td>
                               <td>
                               <FiTrash
